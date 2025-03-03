@@ -33,6 +33,8 @@ export class LocationService {
         longitude: place.lon,
         type: place.type,
         place_id: place.place_id,
+        startDate:"",
+        endDate:""
       };
     } catch (error) {
       throw new BadRequestException(error.response?.data || 'Lỗi khi xác thực địa điểm.');

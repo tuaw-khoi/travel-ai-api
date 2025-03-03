@@ -23,9 +23,9 @@ export class LocationDto {
 
     @IsDate()
     @IsOptional()
-    startDate?: Date;
+    startDate?: string ;
 
     @IsDate()
     @IsOptional()
-    endDate?: Date;
+    endDate?: string;
 }

@@ -10,10 +10,11 @@ export class TravelService {
         private readonly itineraryService: ItineraryService,
         private readonly unsplashService: UnsplashService,
     ) {}
-    async getTravelPlan(destination: string) {
+    async getTravelPlan(destination: string, startDate?: string, endDate?: string) {
         if (!destination) {
             return { message: 'Vui lòng nhập địa điểm du lịch!' };
         }
+        
     
         try {
             // Xác nhận địa điểm
@@ -21,7 +22,12 @@ export class TravelService {
             if (!locationInformation) {
                 return { message: 'Địa điểm không hợp lệ!' };
             }
-    
+
+            
+            if (startDate && endDate) {
+                locationInformation.startDate = startDate;
+                locationInformation.endDate = endDate;
+            }
             // Tạo query tối ưu cho ảnh
             const photoQuery = this.buildPhotoQuery(locationInformation);
             
@@ -96,7 +102,7 @@ export class TravelService {
 
         // Xác nhận địa điểm có thật
         const locationInformation = await this.locationService.getLocationByAddress(destination);
-        
+
         if (!locationInformation) {
             return { message: 'Địa điểm không hợp lệ!' };
         }   
