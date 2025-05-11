@@ -6,7 +6,7 @@ import axios from 'axios';
 
 @Injectable()
 export class ItineraryService {
-  private genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
+  private genAI = new GoogleGenerativeAI("AIzaSyAsWstoU0VCe5bgDzYqE4dpuzjCZBl7-oA");
 
   async generateItinerary(location: LocationDto): Promise<any> {
     const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -67,7 +67,7 @@ Bạn là một trợ lý du lịch chuyên nghiệp, hãy tạo lộ trình du 
   }
 
   async getLocationDetails(location: { name: string; latitude: string; longitude: string }) {
-    const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
 Bạn là một trợ lý du lịch thông minh. Hãy cung cấp thông tin chi tiết về địa điểm dưới dạng JSON:
