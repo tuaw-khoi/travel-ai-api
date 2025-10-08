@@ -29,17 +29,17 @@ export class TravelService {
                 locationInformation.endDate = endDate;
             }
             // Tạo query tối ưu cho ảnh
-            const photoQuery = this.buildPhotoQuery(locationInformation);
+            // const photoQuery = this.buildPhotoQuery(locationInformation);
             
             // Tạo options tìm kiếm dựa trên loại địa điểm
             const searchOptions = this.getSearchOptions(locationInformation.type);
     
             // Gọi API Unsplash với các tham số đã tối ưu
-            const photos = await this.unsplashService.searchPhotos(
-                photoQuery,
-                5, // Lấy 12 ảnh để có nhiều lựa chọn
-                searchOptions
-            );
+            // const photos = await this.unsplashService.searchPhotos(
+            //     photoQuery,
+            //     5, // Lấy 12 ảnh để có nhiều lựa chọn
+            //     searchOptions
+            // );
     
             // Tạo lộ trình
             const itinerary = await this.itineraryService.generateItinerary(locationInformation);
@@ -47,7 +47,7 @@ export class TravelService {
             return { 
                 destination,
                 itinerary,
-                photos: photos 
+                // photos: photos 
             };
         } catch (error) {
             console.error('Lỗi trong quá trình tạo kế hoạch:', error);
