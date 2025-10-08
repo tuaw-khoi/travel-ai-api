@@ -14,6 +14,7 @@ async getTravelPlan(
   @Query('startDate') startDate: string,
   @Query('endDate') endDate: string,
 ) {
+  console.log('Received parameters:', { destination, startDate, endDate });
   return this.travelService.getTravelPlan(destination, startDate, endDate);
 }
 
