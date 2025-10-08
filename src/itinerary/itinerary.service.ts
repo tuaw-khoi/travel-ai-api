@@ -37,9 +37,6 @@ Bạn là một trợ lý du lịch chuyên nghiệp, hãy tạo lộ trình du 
 
 ### Thông tin địa điểm:
 - Tên địa điểm: ${location.name}
-- Vĩ độ: ${location.latitude}
-- Kinh độ: ${location.longitude}
-- Loại địa điểm: ${location.type ?? "Không xác định"}
 - Ngày bắt đầu: ${location.startDate ?? "Không xác định"}
 - Ngày kết thúc: ${location.endDate ?? "Không xác định"}
 
