@@ -9,32 +9,26 @@ export class LocationService {
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json`;
 
     try {
-      const response = await axios.get(url);
-      const data = response?.data;
+      // const response = await axios.get(url);
+      // const data = response?.data;
 
-      if (!data || data.length === 0) {
-        throw new BadRequestException('Địa điểm không hợp lệ hoặc không tồn tại.');
-      }
+      // if (!data || data.length === 0) {
+      //   throw new BadRequestException('Địa điểm không hợp lệ hoặc không tồn tại.');
+      // }
 
-      const place = data[0];
+      // const place = data[0];
 
-      if (!place.lat || !place.lon || !place.display_name) {
-        throw new BadRequestException('Dữ liệu địa điểm không đầy đủ.');
-      }
+      // if (!place.lat || !place.lon || !place.display_name) {
+      //   throw new BadRequestException('Dữ liệu địa điểm không đầy đủ.');
+      // }
 
-      const validTypes = ['city', 'town', 'village', 'attraction', 'administrative'];
-      if (!validTypes.includes(place.type)) {
-        throw new BadRequestException('Loại địa điểm không phù hợp.');
-      }
+      // const validTypes = ['city', 'town', 'village', 'attraction', 'administrative'];
+      // if (!validTypes.includes(place.type)) {
+      //   throw new BadRequestException('Loại địa điểm không phù hợp.');
+      // }
 
       return {
-        name: place.display_name,
-        latitude: place.lat,
-        longitude: place.lon,
-        type: place.type,
-        place_id: place.place_id,
-        startDate:"",
-        endDate:""
+        name: location
       };
     } catch (error) {
       throw new BadRequestException(error.response?.data || 'Lỗi khi xác thực địa điểm.');

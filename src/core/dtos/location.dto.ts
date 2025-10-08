@@ -5,22 +5,6 @@ export class LocationDto {
     @IsNotEmpty()
     name: string;
 
-    @IsNumber()
-    @IsNotEmpty()
-    latitude: number;
-
-    @IsNumber()
-    @IsNotEmpty()
-    longitude: number;
-
-    @IsString()
-    @IsOptional()
-    type?: string;
-
-    @IsString()
-    @IsOptional()
-    place_id?: string;
-
     @IsDate()
     @IsOptional()
     startDate?: string ;

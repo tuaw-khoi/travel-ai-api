@@ -18,21 +18,17 @@ export class TravelService {
     
         try {
             // Xác nhận địa điểm
-            const locationInformation = await this.locationService.validateLocation(destination);
-            if (!locationInformation) {
-                return { message: 'Địa điểm không hợp lệ!' };
-            }
+            // const locationInformation = await this.locationService.validateLocation(destination);
+            // if (!locationInformation) {
+            //     return { message: 'Địa điểm không hợp lệ!' };
+            // }
 
             
-            if (startDate && endDate) {
-                locationInformation.startDate = startDate;
-                locationInformation.endDate = endDate;
-            }
             // Tạo query tối ưu cho ảnh
             // const photoQuery = this.buildPhotoQuery(locationInformation);
             
             // Tạo options tìm kiếm dựa trên loại địa điểm
-            const searchOptions = this.getSearchOptions(locationInformation.type);
+            // const searchOptions = this.getSearchOptions(locationInformation.type);
     
             // Gọi API Unsplash với các tham số đã tối ưu
             // const photos = await this.unsplashService.searchPhotos(
@@ -42,12 +38,11 @@ export class TravelService {
             // );
     
             // Tạo lộ trình
-            const itinerary = await this.itineraryService.generateItinerary(locationInformation);
+            const itinerary = await this.itineraryService.generateItinerary({name:destination, startDate, endDate});
     
             return { 
                 destination,
                 itinerary,
-                // photos: photos 
             };
         } catch (error) {
             console.error('Lỗi trong quá trình tạo kế hoạch:', error);
