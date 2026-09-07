@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import axios, { AxiosError } from 'axios';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import axios from 'axios';
 import { env } from '~/config/env.config';
 
 @Injectable()
 export class UnsplashService {
-  private readonly accessKey = "mptXFckHAI7ZeUreLp-T33ZG4r3ya0m6pm2KRGIjFeQ";
+  private readonly accessKey = env.UNSPLASH_ACCESS_KEY;
   private readonly baseUrl = 'https://api.unsplash.com';
 
   async searchPhotos(
@@ -16,6 +16,10 @@ export class UnsplashService {
       sort?: 'relevant' | 'latest' | 'popular';
     }
   ): Promise<string[]> {
+    if (!this.accessKey || this.accessKey.startsWith('your_')) {
+      throw new InternalServerErrorException('UNSPLASH_ACCESS_KEY chưa được cấu hình!');
+    }
+
     try {
       const formattedQuery = query.trim().replace(/\s+/g, ',');
   

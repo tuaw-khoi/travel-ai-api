@@ -1,15 +1,22 @@
-import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { env } from '~/config/env.config';
 import { LocationDto } from '~/core/dtos/location.dto';
-import axios from 'axios';
 
 @Injectable()
 export class ItineraryService {
-  private genAI = new GoogleGenerativeAI("AIzaSyAsWstoU0VCe5bgDzYqE4dpuzjCZBl7-oA");
+  private readonly genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
+
+  private getModel(model: string) {
+    if (!env.GEMINI_API_KEY || env.GEMINI_API_KEY.startsWith('your_')) {
+      throw new HttpException('GEMINI_API_KEY chưa được cấu hình!', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return this.genAI.getGenerativeModel({ model });
+  }
 
   async generateItinerary(location: LocationDto): Promise<any> {
-    const model = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = this.getModel("gemini-2.5-flash");
 
     const prompt = `
 Bạn là một trợ lý du lịch chuyên nghiệp, hãy tạo lộ trình du lịch dưới dạng JSON hợp lệ với format:
@@ -64,7 +71,7 @@ Bạn là một trợ lý du lịch chuyên nghiệp, hãy tạo lộ trình du 
   }
 
   async getLocationDetails(location: { name: string; latitude: string; longitude: string }) {
-    const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = this.getModel("gemini-1.5-flash");
 
     const prompt = `
 Bạn là một trợ lý du lịch thông minh. Hãy cung cấp thông tin chi tiết về địa điểm dưới dạng JSON:
